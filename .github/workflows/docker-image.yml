@@ -13,10 +13,10 @@ jobs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
       - uses: actions/checkout@v2
-      - name: Build the matrix 
+      - id: set-matrix
         run: |
           content=$(jq 'tostring' release.json)
-          echo "::set-output name=matrix::{\"include\":[{\"binary_version\":\"7.6\",\"os\":\"ubuntu\"}]}"
+          echo "::set-output name=matrix::$content"
           echo "matrix::$content"
 
   build:
