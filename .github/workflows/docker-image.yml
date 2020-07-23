@@ -1,0 +1,27 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  generate_matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - id: set-matrix
+        run: echo "::set-output name=matrix::{\"include\":[{\"binary_version\":\"7.6\",\"platform\":\"ubuntu\"}]}"
+
+  build:
+    needs: generate_matrix 
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: ${{fromJson(needs.generate_matrix.outputs.matrix)}}
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Build the Docker image
+      run: docker build . --file ${{ matrix.binary_version }}/${{ matrix.platform }}/Dockerfile --tag ${{ matrix.binary_version }}:${{ matrix.platform }}
