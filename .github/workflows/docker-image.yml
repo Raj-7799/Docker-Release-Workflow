@@ -1,8 +1,6 @@
 name: Docker Image CI
 
 on:
-  push:
-    branches: [ master ]
   pull_request:
     branches: [ master ]
 
@@ -13,7 +11,9 @@ jobs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
       - id: set-matrix
-        run: echo "::set-output name=matrix::{\"include\":[{\"binary_version\":\"7.6\",\"platform\":\"ubuntu\"}]}"
+        run: |
+          content = `cat ./release.json`
+          echo "::set-output name=matrix::$content"
 
   build:
     needs: generate_matrix 
