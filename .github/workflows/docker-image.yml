@@ -17,7 +17,7 @@ jobs:
         run: |
           content=$(cat release.json)
           echo "::set-output name=matrix::$content"
-          echo "matrix::$content"
+          echo ${{ steps.set-matrix.outputs.matrix }}
 
   build:
     needs: generate_matrix 
