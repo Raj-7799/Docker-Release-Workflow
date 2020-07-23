@@ -21,7 +21,6 @@ jobs:
           content="${content//$'\n'/'%0A'}"
           content="${content//$'\r'/'%0D'}"
           echo "::set-output name=matrix::$content"
-          echo "${{fromJson(steps.set_var.matrix.include)}}"
 
   build:
     needs: generate_matrix 
