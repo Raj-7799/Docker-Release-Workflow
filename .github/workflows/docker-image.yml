@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v2
       - id: set-matrix
         run: |
-          content=$(jq 'tostring' release.json)
+          content=$(cat release.json)
           echo "::set-output name=matrix::$content"
           echo "matrix::$content"
 
