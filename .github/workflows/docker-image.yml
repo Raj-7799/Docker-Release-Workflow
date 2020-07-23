@@ -10,6 +10,8 @@ jobs:
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
+      - uses: actions/checkout@v2
+      - name: Generate matrix for build
       - id: set-matrix
         run: |
           content = `cat ./release.json`
