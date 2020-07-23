@@ -16,8 +16,8 @@ jobs:
       - name: Build the matrix 
         run: |
           content=$(jq 'tostring' release.json)
-          echo "::set-output name=matrix::$content"
-          echo "${{fromJson($content)}}"
+          echo "::set-output name=matrix::{\"include\":[{\"binary_version\":\"7.6\",\"os\":\"ubuntu\"}]}"
+          echo "matrix::$content"
 
   build:
     needs: generate_matrix 
