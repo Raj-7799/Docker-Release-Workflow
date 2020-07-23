@@ -16,7 +16,7 @@ jobs:
       - name: Build the matrix 
         run: |
           echo $(ls -a)
-          content = echo `cat ./release.json`
+          content=$(cat ./release.json)
           echo "::set-output name=matrix::$content"
 
   build:
