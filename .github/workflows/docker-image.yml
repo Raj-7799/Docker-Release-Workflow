@@ -15,7 +15,8 @@ jobs:
       - uses: actions/checkout@v2
       - name: Build the matrix 
         run: |
-          content = `cat ./release.json`
+          echo $(pwd)
+          content = `cat release.json`
           echo "::set-output name=matrix::$content"
 
   build:
