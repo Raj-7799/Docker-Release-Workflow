@@ -63,5 +63,5 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
           dockerfile: ./${{ matrix.binary_version }}/${{ matrix.os }}
-          tags: "${{ matrix.binary_version }}:${{ matrix.os }}"
+#           tags: "${{ matrix.binary_version }}:${{ matrix.os }}"
   
