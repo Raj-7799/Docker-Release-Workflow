@@ -1,5 +1,4 @@
-name: Docker Buld and Run tests
-
+name: Docker CI / CD
 on:
   pull_request:
     # run on pull request against master
