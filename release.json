@@ -8,6 +8,11 @@
     {
       "binary_version": "8.0",
       "os": "ubuntu",
+      "latest": false
+    },
+    {
+      "binary_version": "8.1",
+      "os": "ubuntu",
       "latest": true
     }
   ]
