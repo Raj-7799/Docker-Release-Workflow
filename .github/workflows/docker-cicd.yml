@@ -66,5 +66,15 @@ jobs:
           dockerfile: ./${{ matrix.binary_version }}/${{ matrix.os }}/Dockerfile
           tags: "${{ matrix.binary_version }}-${{ matrix.os }},latest"
 
+      - name: Update latest
+        uses: elgohr/Publish-Docker-Github-Action@master
+        if: ${{ matrix.latest }}
+        with:
+          name: raj779/test
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          dockerfile: ./${{ matrix.binary_version }}/${{ matrix.os }}/Dockerfile
+          tags: "latest"
+
             
   
