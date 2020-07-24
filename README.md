@@ -1,4 +1,4 @@
-## Docker Repository with github workflows for docker build and publishing
+## Docker test
 
 ![Docker CI / CD](https://github.com/Raj-7799/docker_test/workflows/Docker%20CI%20/%20CD/badge.svg)
 
