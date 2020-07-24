@@ -1,4 +1,4 @@
-name: Docker Image Build CI
+name: Docker Buld and Run tests
 
 on:
   pull_request:
@@ -17,7 +17,7 @@ jobs:
           echo "::set-output name=matrix::$content"
           echo ${{ steps.set-matrix.outputs.matrix }}
 
-  build:
+  tests:
     needs: generate_matrix
     runs-on: ubuntu-latest
     strategy:
@@ -27,8 +27,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Build the Docker image
         run: |
-          if ${{ matrix.latest }}; then
-            docker build . --file ${{ matrix.binary_version }}/${{ matrix.os }}/Dockerfile --tag ${{ matrix.binary_version }}:${{ matrix.os }} --tag latest
-          else
-            docker build . --file ${{ matrix.binary_version }}/${{ matrix.os }}/Dockerfile --tag ${{ matrix.binary_version }}:${{ matrix.os }}
-          fi
+          export BINARY=${{ matrix.binary_version }}
+          export PLATFORM=${{ matrix.os }}
+          docker-compose --file ./tests/docker-compose.test.yml build
+          docker-compose --file ./tests/docker-compose.test.yml run sut
