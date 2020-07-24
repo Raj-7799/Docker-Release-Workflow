@@ -1,9 +1,7 @@
-name: Docker Image CI
+name: Docker Image Build CI
 
 on:
   pull_request:
-    branches: [master]
-  push:
     branches: [master]
 
 jobs:
@@ -17,7 +15,6 @@ jobs:
         run: |
           content=$(jq -r 'tostring' release.json)
           echo "::set-output name=matrix::$content"
-          echo "--------------------------------------"
           echo ${{ steps.set-matrix.outputs.matrix }}
 
   build:
