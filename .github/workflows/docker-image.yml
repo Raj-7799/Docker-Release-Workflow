@@ -31,7 +31,7 @@ jobs:
       - name: Build the Docker image
         run: |
           if ${{ matrix.latest }}; then
-            docker build . --file ${{ matrix.binary_version }}/${{ matrix.platform }}/Dockerfile --tag ${{ matrix.binary_version }}:${{ matrix.platform }}, latest
+            docker build . --file ${{ matrix.binary_version }}/${{ matrix.os }}/Dockerfile --tag ${{ matrix.binary_version }}:${{ matrix.os }},latest
           else
-            docker build . --file ${{ matrix.binary_version }}/${{ matrix.platform }}/Dockerfile --tag ${{ matrix.binary_version }}:${{ matrix.platform }}
+            docker build . --file ${{ matrix.binary_version }}/${{ matrix.os }}/Dockerfile --tag ${{ matrix.binary_version }}:${{ matrix.os }}
           fi
