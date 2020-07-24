@@ -2,7 +2,7 @@ name: Docker Image CI
 
 on:
   pull_request:
-    branches: [ master ]
+    branches: [master]
   push:
     branches: [master]
 
@@ -21,12 +21,17 @@ jobs:
           echo ${{ steps.set-matrix.outputs.matrix }}
 
   build:
-    needs: generate_matrix 
+    needs: generate_matrix
     runs-on: ubuntu-latest
     strategy:
       matrix: ${{fromJson(needs.generate_matrix.outputs.matrix)}}
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Build the Docker image
-      run: docker build . --file ${{ matrix.binary_version }}/${{ matrix.platform }}/Dockerfile --tag ${{ matrix.binary_version }}:${{ matrix.platform }}
+      - uses: actions/checkout@v2
+      - name: Build the Docker image
+        run: |
+          if ${{ matrix.latest }}; then
+            docker build . --file ${{ matrix.binary_version }}/${{ matrix.platform }}/Dockerfile --tag ${{ matrix.binary_version }}:${{ matrix.platform }}, latest
+          else
+            docker build . --file ${{ matrix.binary_version }}/${{ matrix.platform }}/Dockerfile --tag ${{ matrix.binary_version }}:${{ matrix.platform }}
+          fi
