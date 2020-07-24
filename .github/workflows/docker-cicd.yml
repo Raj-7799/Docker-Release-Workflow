@@ -62,6 +62,6 @@ jobs:
           name: raj779/test
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-          dockerfile: ./${{ matrix.binary_version }}/${{ matrix.os }}/
+          dockerfile: ./${{ matrix.binary_version }}/${{ matrix.os }}/Dockerfile
           tags: "${{ matrix.binary_version }}-${{ matrix.os }}"
   
