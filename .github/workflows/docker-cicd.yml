@@ -13,6 +13,7 @@ on:
       - 'release.json'
       # if any of the dockerfile changed
       - '**Dockerfile'
+      - '**docker-cicd.yml'
 
 jobs:
   generate_matrix:
@@ -47,7 +48,7 @@ jobs:
   
   publish:
     if: github.event_name == 'push'
-    needs: tests
+    needs: [generate_matrix, tests]
     runs-on: ubuntu-latest
     strategy:
       # create strategy to run jobs based on the matrix
