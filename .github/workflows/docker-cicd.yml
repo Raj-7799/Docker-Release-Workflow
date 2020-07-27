@@ -43,7 +43,7 @@ jobs:
       - name: Build and run test
         run: |
           export BINARY=${{ matrix.binary_version }}
-          export PLATFORM=${{ matrix.os }}
+          export PLATFORM=${{ matrix.platform }}
           docker-compose --file ./tests/docker-compose.test.yml build
           docker-compose --file ./tests/docker-compose.test.yml run sut
   
@@ -60,20 +60,20 @@ jobs:
       - name: Publish to registry
         uses: docker/build-push-action@v1.1.0
         with:
-          repository: raj779/test
+          repository: ${{ secrets.DOCKER_REPOSITORY }}
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-          dockerfile: ./${{ matrix.binary_version }}/${{ matrix.os }}/Dockerfile
-          tags: "${{ matrix.binary_version }}-${{ matrix.os }}"
+          dockerfile: ./${{ matrix.binary_version }}/${{ matrix.platform }}/Dockerfile
+          tags: "${{ matrix.binary_version }}-${{ matrix.platform }}"
 
       - name: Update latest
         if: ${{ matrix.latest }}
         uses: docker/build-push-action@v1.1.0
         with:
-          repository: raj779/test
+          repository: ${{ secrets.DOCKER_REPOSITORY }}
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-          dockerfile: ./${{ matrix.binary_version }}/${{ matrix.os }}/Dockerfile
+          dockerfile: ./${{ matrix.binary_version }}/${{ matrix.platform }}/Dockerfile
           tags: "latest"
 
             
