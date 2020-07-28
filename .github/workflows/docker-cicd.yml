@@ -13,7 +13,6 @@ on:
       - 'release.json'
       # if any of the dockerfile changed
       - '**Dockerfile'
-      - '**docker-cicd.yml'
 
 jobs:
   generate_matrix:
@@ -47,7 +46,6 @@ jobs:
           docker-compose --file ./tests/docker-compose.test.yml run sut
   
   publish:
-    if: github.event_name == 'push'
     needs: [generate_matrix, tests]
     runs-on: ubuntu-latest
     strategy:
@@ -74,6 +72,3 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
           dockerfile: ./${{ matrix.binary_version }}/${{ matrix.platform }}/Dockerfile
           tags: "latest"
-
-            
-  
